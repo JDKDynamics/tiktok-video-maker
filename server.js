@@ -16,8 +16,8 @@ app.post('/generate', (req, res) => {
     const outputFileName = `video_${Date.now()}.mp4`;
     const outputPath = path.join('/tmp', outputFileName);
 
-    const cmd = `ffmpeg -loop 1 -i "${imageUrl}" -c:v libx264 -preset ultrafast -t 4 -pix_fmt yuv420p -vf "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2" -r 30 "${outputPath}"`;
-
+    const cmd = `ffmpeg -loop 1 -i "${imageUrl}" -c:v libx264 -preset ultrafast -tune stillimage -t 4 -pix_fmt yuv420p -vf "scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2" -r 30 "${outputPath}"`;
+    
     exec(cmd, (error) => {
         if (error) return res.status(500).send(error.message);
 
